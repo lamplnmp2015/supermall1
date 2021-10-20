@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模拟</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .box {
+            width: 250px;
+            height: 300px;
+            border: 1px solid blue;
+            margin: 100px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .content {
+            padding: 5px 18px 5px 5px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .scroll {
+            width: 15px;
+            height: 100%;
+            background-color: #eee;
+            right: 0;
+            position: absolute;
+        }
+        
+        .bar {
+            width: 100%;
+            height: 60px;
+            background-color: blue;
+            border-radius: 10px;
+            cursor: pointer;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box">
+        <div class="content" id="content">
+            有外媒报道称吴亦凡新专辑销量是通过欺诈手段取得， 将不会计入榜单排名，这就意味着吴亦凡的榜单排名无效。还有网友发现，美国一则新闻发表了一篇标题为：“吴亦凡(Kris Wu)在美国的iTunes销售额“以欺诈手段”获得，不会计入排行榜"的报道。 而在这之前，Billboard官方也在社交网上回应：“Kris Wu iTunes-topping sales are under review（Kris Wu的iTunes顶级销售正在审查中）” 有外媒报道称吴亦凡新专辑销量是通过欺诈手段取得， 将不会计入榜单排名，这就意味着吴亦凡的榜单排名无效。还有网友发现，美国一则新闻发表了一篇标题为：“吴亦凡(Kris
+            Wu)在美国的iTunes销售额“以欺诈手段”获得，不会计入排行榜"的报道。 而在这之前，Billboard官方也在社交网上回应：“Kris Wu iTunes-topping sales are under review（Kris Wu的iTunes顶级销售正在审查中）” Wu)在美国的iTunes销售额“以欺诈手段”获得，不会计入排行榜"的报道。 而在这之前，Billboard官方也在社交网上回应：“Kris Wu iTunes-topping sales are under
+            review（Kris Wu的iTunes顶级销售正在审查中）” Wu)在美国的iTunes销售额“以欺诈手段”获得，不会计入排行榜"的报道。 而在这之前，Billboard官方也在社交网上回应：“Kris Wu iTunes-topping sales are under review（Kris Wu的iTunes顶级销售正在审查中）” Wu)在美国的iTunes销售额“以欺诈手段”获得，不会计入排行榜"的报道。 而在这之前，Billboard官方也在社交网上回应：“Kris
+            Wu iTunes-topping sales are under review（Kris Wu的iTunes顶级销售正在审查中）”
+
+        </div>
+        <div class="scroll" id="scroll">
+            <div class="bar" id="bar"></div>
+        </div>
+    </div>
+    <script>
+        //1.根据内容的大小，计算滚动条的高度
+        function my$(id) {
+            return document.getElementById(id);
+        }
+        // 获取页面滚动距离的浏览器兼容性问题
+        // 获取页面滚动出去的距离
+        function getScroll() {
+            var scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
+            var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+            return {
+                scrollLeft: scrollLeft,
+                scrollTop: scrollTop
+            }
+        }
+
+        // 获取鼠标在页面的位置，处理浏览器兼容性
+        function getPage(e) {
+            var pageX = e.pageX || e.clientX + getScroll().scrollLeft;
+            var pageY = e.pageY || e.clientY + getScroll().scrollTop;
+            return {
+                pageX: pageX,
+                pageY: pageY
+            }
+        }
+        var box = my$('box');
+        var content = my$('content');
+        var scroll = my$('scroll');
+        var bar = my$('bar');
+		console.log('box.clientHeight='+box.clientHeight);
+		console.log('content.scrollHeight='+content.scrollHeight);
+		console.log('scroll.clientHeight='+scroll.clientHeight);
+        //滚动条的高度/scroll的高度(scroll.clientHeight)=box的高度(box.clientHeight)/内容的高度(content.scrollHeight)
+        //当内容高度<box高度时，没有滚动条显示
+        var barHeight = 0;
+        if (content.scrollHeight > box.clientHeight) {
+            barHeight = box.clientHeight / content.scrollHeight * scroll.clientHeight;
+        }
+		
+        bar.style.height = barHeight + "px";
+
+        //2.让滚动条能够拖拽
+        //2.1 当鼠标按下的时候，求鼠标在滚动条中的位置
+        bar.onmousedown = function(e) {
+            e = e || window.event;
+            //鼠标在滚动条中的位置
+            var y = getPage(e).pageY - box.offsetTop - bar.offsetTop;
+            //2.2鼠标在页面上移动的时候，滚动条的位置
+            document.onmousemove = function(e) {
+                var barY = getPage(e).pageY - y - box.offsetTop;
+                // 控制bar不能移除scroll
+                barY = barY < 0 ? 0 : barY;
+                barY = barY > scroll.clientHeight - bar.clientHeight ? scroll.clientHeight - bar.clientHeight : barY;
+
+                bar.style.top = barY + 'px';
+                //3.当拖拽时，内容跟着滚动
+                //内容滚动的距离/内容最大能够滚动的距离=滚动条滚动的距离/滚动条最大能滚动的距离
+                //内容最大滚动距离
+                var contentMax = content.scrollHeight - box.clientHeight;
+                //滚动条最大滚动距离
+                var barMax = scroll.clientHeight - bar.clientHeight;
+                var contentY = barY / barMax * contentMax;
+                content.style.top = -contentY + "px";
+            }
+        }
+        document.onmouseup = function() {
+            //移除鼠标移动事件
+            document.onmousemove = null;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				padding: 100px;
+			}
+			/* 动画只能影响块元素 */
+			span{
+				display: inline-block;
+			}
+			.hl,.hr{
+				background-color: red;
+				width: 50px;
+				height: 80px;
+				/* border-top-radius: 50px; */
+				border-top-left-radius: 25px;
+				border-top-right-radius:25px ;
+			}
+			.hl{
+				transform: translateX(33px) rotateZ(-45deg) ;
+			}
+			.hr{
+				transform: rotateZ(45deg);
+			}
+			.heart{
+				animation: beat 1.5s z;
+			}
+			@keyframes beat {
+				50% {transform:scale(1.5) ; -webkit-transform:scale(1.5) ; -moz-transform:scale(1.5) ; -ms-transform:scale(1.5) ; -o-transform:scale(1.5) ;}
+				100% {transform: scale(1);}
+			}
+			.point{
+				width: 10px;
+				height: 10px;
+				display: block;
+				background: #6ad7e9;
+				border-radius: 50%;
+				position: absolute;
+				left: 950px;
+				top:196px;
+			}
+			.ripple-base{
+				width: 120px;
+				height: 120px;
+				border: 2px solid #00cdec;
+				border-radius: 50%;
+				transform: scale(0.1);
+				position: absolute;
+				left:-57px;
+				top: -57px;
+			}
+			.r1{
+				animation: ripple 4500ms 225ms infinite;
+			}
+			.r2{
+				animation: ripple 4500ms 1575ms infinite;
+			}
+			@keyframes ripple{
+				100% {opacity: 0;transform: scale(1);}
+			}
+			
+		</style>
+	</head>
+	<body>
+		<!-- 跳动的心 -->
+		<span class="heart">
+			<span class="hl"></span>
+			<span class="hr"></span>
+		</span>
+		<!-- 向外扩散圆圈 -->
+		<div class="point">
+			<div class="ripple-base r1"></div>
+			<div class="ripple-base r2"></div>
+		</div>
+	</body>
+</html>

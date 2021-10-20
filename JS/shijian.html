@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			#box{
+				width: 200px;
+				height: 200px;
+				border: 1px solid chocolate;
+			}
+		</style>
+	</head>
+	<body>
+		<div id = 'box'>
+			
+		</div>
+	</body>
+	<script type="text/javascript">
+		var box = document.getElementById('box');
+		// box.addEventListener('click',function(){alert('222ssss');},false);
+		// box.addEventListener('click',function(){alert('3333');},false);
+		box.onclick = fn;
+		box.onmousemove = fn;
+		box.onmouseover = fn;
+		box.onmouseout = fn;
+		function fn(e){
+			e = e || window.event;
+			// console.log(e.type);
+			var type = e.type;
+			switch(type){
+				case  'click':
+				console.log('click');
+				break;
+				case  'mouseover':
+				console.log('mouseover');
+				break;
+				case  'mouseout':
+				console.log('mouseout');
+				break;
+				// case  'mousemove':
+				// console.log('mousemove');
+				// break;
+			}
+		}
+	</script>
+		
+	</script>
+</html>

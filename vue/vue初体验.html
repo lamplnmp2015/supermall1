@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<head>
+	<body>
+		<div id="app">
+			<h1>{{test}}</h1>                  
+		</div>
+		<div id = 'app-1'>
+			<li v-for="item in info">{{item}}</li>
+		</div>
+	<div id="app-2">
+	  <span v-bind:title="message">
+	    鼠标悬停几秒钟查看此处动态绑定的提示信息！3
+	  </span>
+	</div>
+	<div id="app-3">
+		<h3>当前计数：{{counter}}</h3>
+		<button v-on:click="add()">+</button>
+		<button v-on:click="sub()">-</button>
+	</div>
+	<div id = "app-4">
+		<li v-bind:class="['active']" v-for="(value,index) in info">{{index}}-{{value}}</li>
+	</div>
+	<div id="app-5">
+		<h2 v-if='score>=90'>优秀</h2>
+		<h2 v-else-if='score>=80'>良好</h2>
+		<h2 v-else-if='score>=60'>及格</h2>
+		<h2 v-else-if='score<60'>不及格</h2>
+	</div>
+	<div id="app-6">
+		<h2 v-if='score>=90'>优秀</h2>
+		<h2 v-else-if='score>=80'>良好</h2>
+		<h2 v-else-if='score>=60'>及格</h2>
+		<h2 v-else-if='score<60'>不及格</h2>
+		<h2>{{res}}</h2>
+	</div>
+	<!-- radio单选 -->
+	<div id="app-7">
+		<label for="male">
+			<input type="radio"  id="male" value="男" v-model="sex"/>男
+		</label>
+		<label for="female">
+			<input type="radio"  id="female" value="女" v-model="sex"/>女
+		</label>
+		<h2>选择的性别是：{{sex}}</h2>
+	</div>
+	<!-- checkbox单选 -->
+	<div id="app-8">
+		<label for="agreement">
+			<input type="checkbox"  id="agreement" v-model="isAgree"/>同意协议
+		</label>
+		<button type="button" :disabled="!isAgree">下一步</button>
+		<h2>勾选结果{{isAgree}}</h2>
+	</div>
+	<!-- checkbox多选 -->
+	<div id="app-9">
+		<label for="basketball">
+			<input type="checkbox"  value='篮球' id="basketball" v-model="hobies"/>篮球<br />
+		</label>
+		<label for="football">
+			<input type="checkbox"  value='足球' id="football" v-model="hobies"/>足球<br />
+		</label>
+		<label for="pingpong">
+			<input type="checkbox"  value='乒乓' id="pingpong" v-model="hobies"/>乒乓
+		</label>
+		<h2>你选择的爱好是：{{hobies}}</h2>
+	<!-- select单选 -->
+	</div>
+	<div id="app-10">
+		<select v-model="fruit">
+			<option value ="苹果" >苹果</option>
+			<option value ="橘子" >橘子</option>
+			<option value ="樱桃" >樱桃</option>
+			<option value ="香蕉" >香蕉</option>
+			<option value ="百香果" >百香果</option>
+		</select>
+		<h2>你选择的水果是：{{fruit}}</h2>
+	</div>
+	<!-- select多选 -->
+	<div id="app-11">
+		<select v-model="fruits" multiple="multiple">
+			<option value ="苹果" >苹果</option>
+			<option value ="橘子" >橘子</option>
+			<option value ="樱桃" >樱桃</option>
+			<option value ="香蕉" >香蕉</option>
+			<option value ="百香果" >百香果</option>
+		</select>
+		<h2>你选择的水果是：<span v-for="(v,i) in fruits">{{v}}</span></h2>
+	</div>
+	<div id="app-12">
+		<label v-for='(v,i) in originHobbies' :for="v">
+			<input type="checkbox" v-bind:value='v' v-bind:id='v' v-model="hobbies">{{v}}
+		</label>
+		<h2>你选择的爱好是{{hobbies}}</h2>
+	</div>
+	<script src="./vue.js"></script>
+	<script type="text/javascript">
+		var app = new Vue({
+			el:'#app',
+			data:{
+				test:'初体验'
+			}
+		})
+		var app1 = new Vue({
+			el: '#app-1',
+			  data: {
+				info:[1,2,3,4,54]
+			 }
+		})
+		var app2 = new Vue({
+			el: '#app-2',
+			  data: {
+				message: '页面加载于 ' + new Date().toLocaleString()
+			 }
+		})
+		var app3 = new Vue({
+			el:'#app-3',
+			data:{
+				counter:0
+			},
+			methods:{
+				add:function(){
+					this.counter++;
+				},
+				sub:function(){
+					if(this.counter > 0)this.counter--;
+					
+				}
+			}
+		})
+		const app4 = new Vue({
+			el:'#app-4',
+			data:{
+				info:['西游记','红楼梦','水浒传','三国演义'],
+				active:'aaaa'
+			},
+			methods:{
+				getClasses:function(){
+					return {
+						active:true,
+						line:true
+					};
+				},
+				getClassesArr:function(){
+					return ['active']
+				},
+			}
+		})
+		const app5 = new Vue({
+			el:'#app-5',
+			data:{
+				score:99
+			}
+		})
+		const app6 = new Vue({
+			el:'#app-6',
+			data:{
+				score:99
+			},
+			computed:{
+				res(){
+					let showMessage = '';
+					if(this.score >=90){
+						showMessage = '优秀';
+					}else if(this.score >=80){
+						showMessage = '良好';
+					}else if(this.score >=60){
+						showMessage = '及格';
+					}else if(this.score < 60){
+						showMessage = '不及格';
+					}
+					return showMessage;
+				}
+			}
+		})
+		const app7 = new Vue({
+			el:'#app-7',
+			data:{
+				message:"你好",
+				// 默认
+				sex:'男' 
+			}
+		})
+		const app8 = new Vue({
+			el:'#app-8',
+			data:{
+				message:'你好',
+				isAgree:false
+			}
+		})
+		const app9 = new Vue({
+			el:'#app-9',
+			data:{
+				message:'你好',
+				hobies:[]
+			}
+		})
+		const app10 = new Vue({
+			el:'#app-10',
+			data:{
+				message:'你好',
+				fruit:'苹果'
+			}
+		})
+		const app11 = new Vue({
+			el:'#app-11',
+			data:{
+				message:'你好',
+				fruits:[]
+			}
+		})
+		const app12 = new Vue({
+			el:'#app-12',
+			data:{
+				message:'你好',
+				hobbies:[],
+				originHobbies:['11','112','1123']
+			}
+		})
+	</script>
+	</body>
+</html>

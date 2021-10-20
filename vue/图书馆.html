@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			table{
+				border: 1px solid gainsboro;
+				
+				word-break: keep-all;
+			}
+			tr{
+				
+			}
+			td{
+				
+			}
+		</style>
+	</head>
+	<body>
+		<div id = 'app'>
+			<table>
+				<thead>
+					<tr>
+						<th></th>
+						<th>书籍名称</th>
+						<th>出版日期</th>
+						<th>价格</th>
+						<th>购买数量</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>                  
+					<tr v-for="(v, i) in books">
+						<td>{{v.id}}</td>
+						<td>{{v.name}}</td>
+						<td>{{v.date}}</td>
+						<!-- <td >{{getFinalPrice(v.price)}}</td> -->
+						<td >{{v.price | showPrice(v.price)}}</td> 
+						<td>
+							<button @click="decrement(i)">-</button>
+							{{v.count}}
+							<button @click="increment(i)">+</button>
+						</td>
+						<td><button type="button" @click="remove(i)">移除</button></td>
+					</tr>
+				</tbody>
+			</table>
+			总价格：{{totalPrice| showPrice(totalPrice)}}
+			<!-- 总价格：{{totalPrice}} -->
+		</div>
+		
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+		<script src="./main.js"></script>
+		<script>
+		</script>
+	</body>
+</html>

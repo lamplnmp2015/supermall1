@@ -1,0 +1,69 @@
+1.右键没有 git bash here
+regedit
+在注册表搜索框输入下面的地址，定位到sehll文件夹，如果没有则新建shell文件夹
+HKEY_CLASSES_ROOT\Directory\Background\shell
+
+在shell文件夹下新建Git Bush Here项，在Git Bush Here下新建Command项
+修改Command项默认值
+打开command项-选中默认选项-右键-修改
+在数值数据框中输入：“git安装目录的地址”
+
+
+git init初始化																								
+git config --global user.name 'chenming'设置当前用户名
+
+ git config --global  user.email'chenming@ming.com'设置邮箱
+ 
+ git add 添加到仓库
+ git commit -m 'ssssddd'提交并备注
+ 
+ 
+git status 查看文件状态 
+绿色修改过只add 没commit
+nothing to commit, working tree clean 已保存或没改变
+只新建、改变没add 红色
+ add commit 合并
+ git commit --all -m ''
+ 
+ git log 查看日志 --oneline 一行一条简洁数据
+ 
+ git reset --hard Head~0 回退到日志中第一个版本 1第二个
+ git reset --hard 版本号  切换版本
+ git reflog 版本切换记录
+ 
+ git branch  查看分支
+ git branch dev 创建分支
+ git branch -d dev 删除分支
+ git checkout dev 切换到dev分支
+ git merge dev
+ git push https://github.com/lamplnmp2015/test1.git master 推送代码到远程版本库
+ git pull https://github.com/lamplnmp2015/test1.git master 拉取代码到本地（会合并，要初始化）
+ git clone https://github.com/lamplnmp2015/test1.git master 克隆项目到远本地（不会合并，不需要初始化
+ 
+ ssh
+ 1.生成秘钥
+ 桌面打开bash
+ 
+  ssh-keygen -t rsa -C 'chenming@126.com' 全程回车
+ (/c/Users/lampw/.ssh/id_rsa) 默认秘钥存放地址
+ 
+ 生成三个文件id_rsa、id_rsa.pub、known_hosts 最后一个文件可能没有生成
+ 在 工作目录push时会
+ Are you sure you want to continue connecting (yes/no/[fingerprint])?
+ yes后生成known_hosts
+ git push  git@github.com:lamplnmp2015/test_ssh.git master 
+ git pull git@github.com:lamplnmp2015/test_ssh.git master 
+ 
+ 简写pull、push
+ git remote add origin git@github.com:lamplnmp2015/test_ssh.git
+ 
+ git push origin -u master 提交到matser分支
+ 
+ git push 默认提交上次设置的地址
+ 
+ git官网打不开解决办法，修改host文件
+ https://github.com.ipaddress.com/
+ https://fastly.net.ipaddress.com/github.global.ssl.fastly.net
+ https://github.com.ipaddress.com/assets-cdn.github.com
+ 查询到ip后一次修改下面ip
+140.82.114.4 github.com199.232.5.194 github.global.ssl.fastly.net185.199.108.153 assets-cdn.github.com185.199.109.153 assets-cdn.github.com185.199.110.153 assets-cdn.github.com185.199.111.153 assets-cdn.github.com

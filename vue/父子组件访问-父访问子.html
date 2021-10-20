@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id='app'>
+        <cpn ref = 'aaa'></cpn>
+        <button @click='btnClick'>打印</button>
+    </div>
+    <template id = 'cpn'>
+        <div>我是子组件</div>
+    </template>
+    <script src="./vue.js"></script>
+    <script type="text/javascript">
+    let cpn = {
+        template:'#cpn',
+        methods:{
+            showMessage(){
+                console.log('show');
+            }
+        }
+    }
+    const app = new Vue({
+        el:'#app',
+        data:{
+            message:'hi'
+        },
+        components:{
+            cpn
+        },
+        methods:{
+            btnClick(){
+                // 1.children
+                // console.log(this.$children);
+                // console.log(this.$children[0].showMessage());
+                // 2.$refs =>对象类型，默认为空 需要<cpn ref = 'aaa'></cpn>
+                console.log(this.$refs.aaa.showMessage());
+            }
+        }
+    })
+    </script>
+</body>
+</html>

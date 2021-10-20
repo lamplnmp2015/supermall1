@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id='app' >
+        <cpn ref = 'aaa'></cpn>
+    </div>
+    <template id = 'cpn'>
+        <div>
+            <div>我是cpn子组件，{{name}}</div>
+            
+            
+            <button @click='btnClick()'>cpn打印</button>
+            <ccpn ref='ccc'></ccpn>
+        </div>
+        
+    </template>
+    <template id = 'ccpn'>
+        <div>
+            <div>我是ccpn组件</div>
+            <button @click='showMessage3()'>ccpn打印</button>
+        </div>
+        
+    </template>
+    <script src="./vue.js"></script>
+    <script type="text/javascript">
+    let ccpn = {
+        template:'#ccpn',
+        methods:{
+            showMessage3(){
+                console.log('show3');
+                console.log(this.$parent.name);
+                console.log(this.$root);
+            }
+        }
+    }
+    let cpn = {
+        template:'#cpn',
+        methods:{
+            btnClick(){
+                console.log(this.$parent.showMessage2());
+                console.log(this.$refs.ccc.showMessage3());
+            },
+            showMessage(){
+                console.log(this.$parent.showMessage2());
+            }
+        },
+        data(){
+            return{
+                name:'我是cpn组件的name'
+            }
+        },
+        components:{
+            ccpn
+        }
+    }
+    const app = new Vue({
+        el:'#app',
+        data:{
+            message:'hi'
+        },
+        components:{
+            cpn
+        },
+        methods:{
+            showMessage2(){
+                console.log('app的showMessage2');
+            }
+        }
+    })
+    </script>
+</body>
+</html>

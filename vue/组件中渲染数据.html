@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<head>
+	<body>
+		<div id="app">
+			<cpn></cpn>
+		</div>
+	<script src="./vue.js"></script>
+	<script type="text/x-template" id="cpn">
+		<div>
+			<h2>{{title}}</h2>
+			<button @click="increment">+</button>
+			<button @click="decrement">-</button>
+		</div>
+	</script>
+	<script type="text/javascript">
+		Vue.component('cpn',{
+			template:'#cpn',
+			data(){
+				return {
+					title:0
+				}
+			},
+			methods:{
+				increment(){
+					this.title++;
+				},
+				decrement(){
+					if(this.title > 0)this.title--;
+				}
+			}
+		});
+		const app = new Vue({
+			el:'#app'
+		})
+	</script>
+	</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <cpn>
+            <button slot="test1">slot1</button>
+            <button slot="test2">slot2</button>
+            <button>冲冲冲</button>
+        </cpn>
+        <!-- <cpn><button>按钮1</button></cpn>
+        <cpn></cpn>
+        <cpn></cpn> -->
+    </div>
+    <template id="cpn">
+        <div>
+            <!-- <slot ><button>按钮</button></slot> -->
+            <slot name = 'test1'></slot>
+            <h2>我是cpn组件</h2>
+            <p>我是组件是是是</p>
+            <slot name = 'test2'></slot>
+            <slot></slot>
+        </div>
+    </template>
+    <script src="./vue.js"></script>
+    <script type="text/javascript">
+    let cpn = {
+        template:'#cpn',
+        data(){
+            return {
+
+            }
+        }
+    }
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'hi'
+            },
+            components:{
+                cpn
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id = "app">
+			<cpn @itemclick="cpnClick"></cpn><!-- //itemclick不支持驼峰，’-‘连接符也不可以 .cpnClcik不能（）传参数-->
+		</div>
+		<template id = 'cpn'>
+			<div>
+				<button type="button" v-for="(v,i) in categories" @click="btnClick(v)">{{v.name}}</button>
+			</div>
+		</template>
+		<script src="./vue.js"></script>
+		
+		<script type="text/javascript">
+		let cpn = {
+			template:'#cpn',
+			data(){
+				return{
+					categories:[
+						{id:'aaa',name:'热门数码1'},
+							{id:'bbb',name:'热门数码2'},
+							{id:'vvv',name:'热门数码3'},
+							{id:'nbn',name:'热门数码4'},
+						
+					]
+				}
+			},
+			methods:{
+				btnClick(item){
+					this.$emit('itemclick',item)
+					console.log(item.name);
+				}
+			}
+		}
+			const app = new Vue({
+				el:'#app',
+				components:{
+					cpn
+				},
+				methods:{
+					cpnClick(item){ //在子组件中this.$emit('itemclick',item)这里直接传参，不用在模板中（item）否则报错
+						console.log(item.id);
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

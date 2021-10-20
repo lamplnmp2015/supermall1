@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id ='app' >
+        <cpn :number1='num1' :number2='num2' @initprops1 = 'appprops1' @initprops2 = 'appprops2'></cpn>
+    </div>
+    <template id="cpn">
+        <div>
+            <h2>props:{{number1}}</h2>
+            <h2>data:{{dnumber1}}</h2>
+            <input type="text" v-model='dnumber1' @input='test1'>
+            <h2>props:{{number2}}</h2>
+            <h2>data:{{dnumber2}}</h2>
+            
+            <input type="text" v-model='dnumber2' @input='test2'>
+        </div>
+    </template>
+    <script src="./vue.js"></script>
+    <script type="text/javascript">
+    let cpn = {
+        template:'#cpn',
+        //将app实例中的num1，num2传到子组件中
+        props:{
+            number1:Number,
+            number2:Number
+        },
+        data(){
+            //初始化传入的值，向组件渲染数据
+            return{
+                dnumber1:this.number1,
+                dnumber2:this.number2
+            }
+        },
+        methods:{
+            test1(event){
+                // this.dnumber1 = event.target.value;
+                // this.$emit('initprops1',this.dnumber1);  
+                this.$emit('initprops1',event.target.value);//不能直接传入app实例中的函数，需要传入到子组件中的@函数
+                this.dnumber2 = event.target.value*100;
+                this.$emit('initprops2',this.dnumber2)
+            },
+            test2(event){
+                // this.dnumber2 = event.target.value;
+                // this.$emit('initprops2',this.dnumber2); 
+                this.$emit('initprops2',event.target.value);
+                this.dnumber1 = event.target.value/100;
+                this.$emit('initprops1',this.dnumber1)
+            }
+        }
+    }
+        const app = new Vue({
+            el:'#app',
+            data:{
+                num1:1,
+                num2:0
+            },
+            components:{
+                cpn
+            },
+            methods:{
+                appprops1(item){
+                    this.num1 = Number(item);
+                    console.log(item);;
+                },
+                appprops2(item){
+                    this.num2 = Number(item);
+                    console.log(item);
+                },
+            }
+        })
+    </script>
+</body>
+</html>

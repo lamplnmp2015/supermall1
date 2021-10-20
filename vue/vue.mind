@@ -1,0 +1,969 @@
+//css生成工具
+CSS Grid Generator：  https://cssgrid-generator.netlify.app/
+CSS Layout：  https://csslayout.io/
+Flexbox Generator：https://loading.io/flexbox/
+行数列数快速布局：cssgr.id 
+https://grid.layoutit.com/
+1创建vue对象
+ const app = new Vue({
+	 el:'#app',
+	 data:{
+		 name:'sss',
+		 info:[1,2,43]
+		 
+	 },
+	 methods:{
+		 add:function(){
+			 
+		 }
+	 }
+ })
+ <button v-on:click='add'></button>
+ <button @click='add'></button>//简写
+ 
+ mvvm
+ 
+ const obj = {
+	 counter:0
+ }
+ const app = new Vue({
+ 	 el:'#app',
+ 	 data:obj
+ 	 methods:{
+ 		 add:function(){
+ 			 console.log(this.counter);//vue会将obj内的参数转移到vue()内，proxy代理
+			 
+ 		 }
+ 	 }
+ })
+ 
+ 2.生命周期
+ file:///E:/phpStudy/WWW/mobileJD/uploads/812815-20160901184143824-1244680096.png
+ https://upload-images.jianshu.io/upload_images/11370083-f279314aef6741db.jpg?imageMogr2/auto-orient/strip|imageView2/2/w/1080/format/webp
+ Vue实例有一个完整的生命周期，也就是说从开始创建、初始化数据、编译模板、挂在DOM、渲染-更新-渲染
+ 、卸载等一系列过程，我们成为Vue 实例的生命周期，钩子就是在某个阶段给你一个做某些处理的机会。
+ 
+ beforeCreate( 创建前 )
+ 在实例初始化之后，数据观测和事件配置之前被调用，此时组件的选项对象还未创建，el 和 data 并未初始化，因此无法访问methods， data， computed等上的方法和数据。
+ 
+ created ( 创建后 ）
+ 实例已经创建完成之后被调用，在这一步，实例已完成以下配置：数据观测、属性和方法的运算，watch/event事件回调，完成了data 数据的初始化，el没有。 然而，挂在阶段还没有开始, $el属性目前不可见，这是一个常用的生命周期，因为你可以调用methods中的方法，改变data中的数据，并且修改可以通过vue的响应式绑定体现在页面上，，获取computed中的计算属性等等，通常我们可以在这里对实例进行预处理，也有一些童鞋喜欢在这里发ajax请求，值得注意的是，这个周期中是没有什么方法来对实例化过程进行拦截的，因此假如有某些数据必须获取才允许进入页面的话，并不适合在这个方法发请求，建议在组件路由钩子beforeRouteEnter中完成
+ 
+ beforeMount
+ 挂在开始之前被调用，相关的render函数首次被调用（虚拟DOM），实例已完成以下的配置： 编译模板，把data里面的数据和模板生成html，完成了el和data 初始化，注意此时还没有挂在html到页面上。
+ 
+ mounted
+ 挂在完成，也就是模板中的HTML渲染到HTML页面中，此时一般可以做一些ajax操作，mounted只会执行一次。
+ 
+ beforeUpdate
+ 在数据更新之前被调用，发生在虚拟DOM重新渲染和打补丁之前，可以在该钩子中进一步地更改状态，不会触发附加地重渲染过程
+ 
+ updated（更新后）
+ 在由于数据更改导致地虚拟DOM重新渲染和打补丁只会调用，调用时，组件DOM已经更新，所以可以执行依赖于DOM的操作，然后在大多是情况下，应该避免在此期间更改状态，因为这可能会导致更新无限循环，该钩子在服务器端渲染期间不被调用
+ 
+ beforeDestroy（销毁前）
+ 在实例销毁之前调用，实例仍然完全可用，
+ 
+ 这一步还可以用this来获取实例，
+ 一般在这一步做一些重置的操作，比如清除掉组件中的定时器 和 监听的dom事件
+ destroyed（销毁后）
+ 在实例销毁之后调用，调用后，所以的事件监听器会被移出，所有的子实例也会被销毁，该钩子在服务器端渲染期间不被调用
+ 3、Mustacche语法
+ {{}}
+ 也可以写一些简单的表达式
+ {{a+b}} {{a*2}}
+ 
+ 4、常用指令
+ 对文本操作
+ v-once {{message}}只改变一次
+ v-html 将字符串当做html解析
+ v-text <h2 v-text="message"></h2>等于{{message}} ,但message会覆盖标签内的文本
+ v-pre  不解析
+ v-cloak斗篷  在解析完成之前隐藏
+ 对属性
+ v-bind 对元素的属性动态操作，不能Mustacche
+ 语法糖 :
+ v-bind:scr='imgUrl'  简写 :src='imgUrl'
+ 动态绑定class
+ v-bind:class='{active:isActive,line:isLiine}' 对象方式
+ data:{
+	 isActive:true,
+	 isLiine:false
+ }
+ 
+v-bind:class = 'getClasses()' 函数方式
+
+const app = new Vue({
+	el:'#app'A<div id="sheet1" class="mui-popover mui-popover-bottom mui-popover-action ">
+		<!-- 可选择菜单 -->
+		<ul class="mui-table-view">
+		  <li class="mui-table-view-cell">
+			<a href="#">C .<div id="sheet1" class="mui-popover mui-popover-bottom mui-popover-action ">
+				<!-- 可选择菜单 -->
+				<ul class="mui-table-view">
+				  <li class="mui-table-view-cell">
+					<a href="#">.Q</a>
+				  </li>
+				  <li class="mui-table-view-cell">
+					<a href="#">2菜单2</a>
+				  </li>
+				</ul>
+				<!-- 取消菜单 -->
+				<ul class="mui-table-view">
+				  <li class="mui-table-view-cell">
+					<a href="#sheet1"><b>3取消</b></a>
+				  </li>
+				</ul>
+			</div>QW <b>08.0808.0</b></a>
+		  </li>
+		  <li class="mui-table-view-cell">
+			<a href="#">2菜单2</a>
+		  </li>
+		</ul>
+		<!-- 取消菜单 -->
+		<ul class="mui-table-view">
+		  <li class="mui-table-view-cell">
+			<a href="#sheet1"><b>3取消</b></a>
+		  </li>
+		</ul>
+	</div>
+	data:{
+		message:'你好啊',
+		isActive:true
+	},
+	methods:{
+		getClasses:function(){
+			return {active:this.isActive}
+		}
+	}
+})
+v-bind:class = '[active,line]';不带引号为变量，相反为字符串	
+v-bind:class = arr;	
+v-bind:class = arr;	
+const app = new Vue({
+	el:'#app',
+	data:{
+		arr:['active', 'line']
+	}
+})
+
+<div id = 'app-1'>
+	<li v-for="(value,index) in info">{{index}}-{{value}}</li>
+</div>
+
+绑定style
+<h2 v-bind:style="[back]">数组方式
+
+data:{
+		arr:[{'background-color':'red'}],
+		back:{'background-color':'red'}
+	}
+	
+计算属性 
+{{fullname}} 不加括号，本质上是属性
+computed:{
+	fullname:function(){//是下列的简洁写法
+		
+	}
+}
+
+computed:{
+	fullname:
+		get:function(){
+		
+		}	
+	}
+}
+
+computed缓存
+
+<h2>{{fullname}}</h2>
+<h2>{{fullname}}</h2>
+<h2>{{fullname}}</h2>
+<h2>{{fullname}}</h2>
+<h2>{{fullname}}</h2>
+结果没有变化的情况下只执行一次
+methods没有缓存
+总结methods与computed区别：
+
+调用方式不同。computed直接以对象属性方式调用，不需要加括号，而methods必须要函数执行才可以得到结果。
+绑定方式不同。methods与compute纯get方式都是单向绑定，不可以更改输入框中的值。compute的get与set方式是真正的双向绑定。
+是否存在缓存。methods没有缓存，调用相同的值计算还是会重新计算。competed有缓存，在值不变的情况下不会再次计算，而是直接使用缓存中的值。
+计算属性一般没有set
+data:{
+	lastname:'aa',
+	firstname:'bb'
+}
+computed:{
+	fullname:{
+		get:function(){
+			
+		},
+		set:function(newvalue){
+			let arr = newValue.split('');
+			this.firstname = arr[0];
+			this.lastname = arr[1];
+		}
+	} 
+}
+app.fullname = 'abc';//在vue中可以直接这样访问app对象的任何地方的属性
+
+es6补充
+
+const 不能修改	 但是可以修改值对象内的属性
+对象字面量的增强写法(es6写法)
+const name = 'sss';
+const sex = 'ssss';
+const height = 'qaa';
+const obj = {
+	name,
+	sex,
+	height
+	run(){
+		console.log('');
+	}
+}
+
+v-on:click.stop  调用event.stopPropagation()阻止冒泡
+v-on:click.prevent event.preventDefault 阻止默认事件
+v-on.keyup.enter/13 = 'onEnter()'键盘监听
+v-on.once=''只执行一次
+语法糖@
+v-if='age>=95'
+v-else-if = ''
+
+v-show = ''是否显示(display:none)  切换频率比较高时用，只切换一次用v-if
+
+v-for = "(value,index) in info"
+
+:key 唯一标识，通常使用在for循环中与value相等，提高渲染效率，在中间插入新dom时，不用重新转移
+
+
+直接修改对象的属性不能响应式，需要对对象进行修改，赋值
+哪些情况能响应式
+
+.push() 末尾添加
+.pop() 末尾弹出
+.shift() 弹出第一个元素，并返回该值
+.unshift() 在开头添加一个元素，返回长度
+.splice(index,howmany,newValue) index从何处开始，howmany删除几个，newvalue添加的元素
+.sort() 排序  字母或数字
+.reverse() 翻转 该方法会改变原来的数组，而不会创建新的数组。
+vue.set(this.letters,0,'bbbb') 需要修改的变量，位置，新值
+过滤器
+<td >{{v.price | showPrice(v.price)}}</td> 
+filters:{
+	showPrice(price){
+		return '￥'+price.toFixed(2);
+	}
+}
+三种for循环
+for(let i = 0;i<data.length;i++){
+	
+}
+for(let index in data){ //拿到key
+	
+}
+for(let item of data){//拿到value
+	
+}
+
+高阶函数
+
+支持链式编程
+filter函数 过滤器 js中
+
+const num = [1,23,555,666,33];
+let newnums = num.filter((n)=>{//n=>item
+	return n< 100; //条件 当语句为true时,会把n添加到新数组中,所以可以 使用条件语句
+})
+
+map函数
+let new2nums = newnums.map((n)=>{
+	return n*2;
+})
+reduce函数 对内容进行汇总
+let new3nums = newnums.reduce((prevalue,n)=>{//prevalue 上一次返回的值
+	return prevalue+n;
+},0)//初始值
+
+
+v-model
+本质是v-bind绑定了一个属性，v-on指令给当前元素绑定input事件
+
+<input type="text" v-model="message" />
+等同于
+<input type='text' v-bind:value="message" v-on:input="message" />
+
+ @inpuit='$event.target.value' 获取input输入的值
+ @input = 'getValue'
+ methods:{
+	 getVlaue(event){
+		 this.value = event.target.value
+	 }
+ }
+<label for="male">
+	<input type="radio" name="sex" id="male" />男
+</label>
+<label for="female">
+	<input type="radio" name="sex" id="female" />女
+</label>
+radio单选
+<div id="app-7">
+	<label for="male">
+		<input type="radio"  id="male" value="男" v-model="sex"/>男  sex与文本内容相同
+	</label>
+	<label for="female">
+		<input type="radio"  id="female" value="女" v-model="sex"/>女
+	</label>
+	<h2>选择的性别是：{{sex}}</h2>
+</div>
+
+const app7 = new Vue({
+	el:'#app-7',
+	data:{
+		message:"你好",
+		// 默认
+		sex:'男' //默认
+	}
+})
+checkbox单选
+<div id="app-8">
+	<label for="agreement">
+		<input type="checkbox"  id="agreement" v-model="isAgree"/>同意协议
+	</label>
+	<button type="button" :disabled="!isAgree">下一步</button>
+	<h2>勾选结果{{isAgree}}</h2>
+</div>
+	
+const app8 = new Vue({
+	el:'#app-8',
+	data:{
+		message:'你好',
+		isAgree:false
+	}
+})
+checkbox多选
+<div id="app-9">
+		<label for="basketball">
+			<input type="checkbox"  value='篮球' id="basketball" v-model="hobies"/>篮球<br /> 多选为数组
+		</label>
+		<label for="football">
+			<input type="checkbox"  value='足球' id="football" v-model="hobies"/>足球<br />
+		</label>
+		<label for="pingpong">
+			<input type="checkbox"  value='乒乓' id="pingpong" v-model="hobies"/>乒乓
+		</label>
+		<h2>你选择的爱好是：{{hobies}}</h2>
+	</div>
+const app9 = new Vue({
+	el:'#app-9',
+	data:{
+		message:'你好',
+		hobies:[]//多选为数组
+	}
+})
+
+select 单选
+<div id="app-10">
+	<select v-model="fruit">
+		<option value ="苹果" >苹果</option>
+		<option value ="橘子" >橘子</option>
+		<option value ="樱桃" >樱桃</option>
+		<option value ="香蕉" >香蕉</option>
+		<option value ="百香果" >百香果</option>
+	</select>
+	<h2>你选择的水果是：{{fruit}}</h2>
+</div>
+const app10 = new Vue({
+	el:'#app-10',
+	data:{
+		message:'你好',
+		fruit:'苹果'
+	}
+})
+
+select 多选
+<div id="app-11">
+	<select v-model="fruits" multiple="multiple">
+		<option value ="苹果" >苹果</option>
+		<option value ="橘子" >橘子</option>
+		<option value ="樱桃" >樱桃</option>
+		<option value ="香蕉" >香蕉</option>
+		<option value ="百香果" >百香果</option>
+	</select>
+	<h2>你选择的水果是：<span v-for="(v,i) in fruits">{{v}}</span></h2>
+</div>
+const app11 = new Vue({
+	el:'#app-11',
+	data:{
+		message:'你好',
+		fruits:[]
+	}
+})
+
+值绑定  在真实开发中，数据是动态的，之前的value值都是写死的，动态数据for循环的，需要值绑定
+
+value='v' -> v-bind:value='v'
+id='v'  -> 'v-bind:id='v'
+<div id="app-12">
+	<label v-for='(v,i) in originHobbies' :for="v">
+		<input type="checkbox" v-bind:value='v' v-bind:id='v' v-model="hobbies">{{v}}
+	</label>
+	<h2>你选择的爱好是{{hobbies}}</h2>
+</div>
+
+const app12 = new Vue({
+	el:'#app-12',
+	data:{
+		message:'你好',
+		hobbies:[],
+		originHobbies:['11','112','1123']
+	}
+})
+
+v-model.lazy 懒加载，不会实时绑定，失焦或回车才会
+v-model.number  默认赋值是string
+v-model.trim 过滤内容空格
+
+组件化
+注册组件
+1、创建组件构造器  Vue.extend()
+2、注册组件 Vue.component()
+3、使用组价 
+
+注册一定要在new Vue之前
+<div id="app">   
+	<my-cpn></my-cpn>  必须放在vue实例中，不能单独使用
+</div>
+
+const cpnC = Vue.extend({
+	template:`
+	<div>
+		<h2>标题</h2>
+		<p>内容</p>
+	</div>`	
+})
+全局组件
+Vue.component('my-cpn',cpnC)
+const app = new Vue({
+	el:'#app'
+})
+
+局部组件
+const app = new Vue({
+	el:'app',
+	components:{
+		cpn:'cpnc' //只能在app这个vue实例中使用
+	}
+})
+
+父子组件 在template中使用<my-cpn></my-cpn>,第二个参数components:{}
+
+const cpnc2 = Vue.extend({ //子组件 如果 app实例需要使用那么要在app中也要注册一次
+	template:`
+		<div>
+			<h2>我是子组件</h2>
+		</div>
+	`
+})
+const cpnC = Vue.extend({  //父组件
+	template:`
+	<div>
+		<h2>标题</h2>
+		<p>内容</p>
+		<cpnc2></cpnc2>
+	</div>`	,
+	components:{
+		cpnc2:cpnc2
+	}
+})
+
+Vue.component('my-cpn',cpnC)
+const app = new Vue({
+	el:'#app'
+})
+
+ 全局组件语法糖
+ 省略 extend
+ Vue.component('my-cpn',{ //子组件 如果 app实例需要使用那么要在app中也要注册一次
+	template:`
+		<div>
+			<h2>我是子组件</h2>
+		</div>
+	`
+})
+ const app = new Vue({
+ 	el:'#app'
+ })
+ 分离写法
+ <script type="text/x-template" id="cpn">
+	<div>
+		<h2>hhhh</h2>
+	</div>
+ </script>
+ 或
+ <template id="cpn">
+	 <div>
+	 	<h2>hhhh</h2>
+	 	<h2>{{title}}</h2>
+	 </div>
+ </template>
+ 在组件中渲染数据使用函数
+ 
+ <script type="text/x-template" id="cpn">
+ 	<div>
+ 		<h2>{{title}}</h2>
+ 		<button @click="increment">+</button>
+ 		<button @click="decrement">-</button>
+ 	</div>
+ </script>
+ 
+ Vue.component('cpn',{
+ 	template:'#cpn'//模板中的id也需要#
+ 	data(){
+ 		return {
+ 			title:0 //数据需要在这里添加，在vue实例中添加无效
+ 		}
+ 	},
+ 	methods:{
+ 		increment(){
+ 			this.title++;
+ 		},
+ 		decrement(){
+ 			if(this.title > 0)this.title--;
+ 		}
+ 	}
+ });
+ //父子组件的通讯
+ 
+ //父模板中数据在子组件中使用
+ <div id="app">
+ 	<cpn v-bind:cmovies="movies" :cmessage="message"></cpn>
+ </div>
+ <template id="cpn">
+ 	<div>
+ 		<h2>{{cmessage}}</h2>
+ 		<ul>
+ 			<li v-for="(v,i) in cmovies">
+ 				{{v}}
+ 			</li>
+ 		</ul>
+ 	</div>
+ </template>
+ 
+ const cpn = {
+ 	  template:'#cpn',
+ 		// props:['cmovies','cmessage'],
+ 		// props:{
+ 		// 	cmovies:Array,//限制类型array
+ 		// 	cmessage:String//限制类型string
+ 		// },
+ 		props:{
+ 			cmessage:{
+ 				type:String,
+ 				default:'aaaaaaaa',//默认值
+ 				required:true// 参数必传
+ 			},
+ 			//类型是对象或数组时，默认值必须是一个函数
+ 			cmovies:{
+ 				type:Array,
+ 				default(){
+ 					return [];
+ 				}
+ 			}
+ 		},
+ 		
+ 		methods:{
+ 			
+ 		}
+ }
+ //根组件
+ const app = new Vue({
+ 	el:'#app',
+ 	data:{
+ 		message:'测速',
+ 		movies:['海王','海贼王','海尔兄弟']
+ 	},
+ 	components:{
+ 		cpn
+ 	}
+ })
+ //v-bind不支持驼峰写法秒如果js中的函数名为驼峰cMessage,那么在v-bind中改为c-message
+ 
+ //父组件访问子组件
+ let cpn = {
+        template:'#cpn',
+        methods:{
+            showMessage(){
+                console.log('show');
+            }
+        }
+    }
+    const app = new Vue({
+        el:'#app',
+        data:{
+            message:'hi'
+        },
+        components:{
+            cpn
+        },
+        methods:{
+            btnClick(){
+                // 1.children
+                // console.log(this.$children);
+                // console.log(this.$children[0].showMessage());
+                // 2.$refs =>对象类型，默认为空 需要<cpn ref = 'aaa'></cpn>
+                console.log(this.$refs.aaa.showMessage());
+            }
+        }
+    })
+
+	//子访问父  很少用
+	<div id='app'>
+        <cpn ref = 'aaa'></cpn>  
+    </div>
+    <template id = 'cpn'>
+        <div>
+            <div>我是cpn子组件，{{name}}</div>
+            
+            <ccpn ref='ccc'></ccpn>
+            <button @click='btnClick()'>打印</button>
+        </div>
+        
+    </template>
+
+
+	let ccpn = {
+        template:'#ccpn',
+        methods:{
+            showMessage3(){
+                console.log('show3');
+                console.log(this.$parent.name);//父组件
+				console.log(this.$root);//vue
+            }
+        }
+    }
+    let cpn = {
+        template:'#cpn',
+        methods:{
+            btnClick(){
+                console.log(this.$parent.showMessage2());
+                console.log(this.$refs.ccc.showMessage3());
+            },
+            showMessage(){
+                console.log(this.$parent.showMessage2());
+            }
+        },
+        data(){
+            return{
+                name:'我是cpn组件的name'
+            }
+        },
+        components:{
+            ccpn
+        }
+    }
+    const app = new Vue({
+        el:'#app',
+        data:{
+            message:'hi'
+        },
+        components:{
+            cpn
+        },
+        methods:{
+            showMessage2(){
+                console.log('');
+            }
+        }
+    })
+
+//slot  组件的插槽
+
+<div id="app">
+	<cpn><button>按钮</button></cpn>//cpn中可以写多个，都会替换到下列的slot标签中
+	<cpn><button>按钮1</button></cpn>
+  <cpn slot = 'test1'><button>按钮2222</button></cpn>
+	<cpn></cpn>
+	<cpn></cpn>
+</div>
+<template id="cpn">
+	<div>
+		<h2>我是cpn组件</h2>
+		<p>我是组件是是是</p>
+		<slot name ='test1'><button>按钮</button></slot> 
+		<slot name ='test2'><button>按钮</button></slot> 
+		<slot name ='test3'><button>按钮</button></slot> 
+		 <!--<slot></slot>标签，<cpn></cpn>中填写每个不同的元素，slot中填写默认元素=><slot name ='test3'><button>按钮</button></slot>
+		 在有多个slot时，需要写上name，在cpn内添加的标签上 加上slot='test1',没有名字的元素才会替换没有名字的slot， -->
+	</div>
+</template>
+//编译作用域
+当组件在哪个模板中使用时，就会使用哪个模板中的变量，这就是作用域
+获取子组件的变量
+<div id= 'app'>
+	<cpn></cpn>
+	<cpn>
+		<template slot-scope = 'slot'> //将cpn组件中的data传入改名为slot
+			<span v-for = 'item in slot.data'></span>
+		</template>
+			<span>{{slot.data.join(-)}}</span>在data的item中间家-
+	</cpn>
+</div>
+
+<template id = 'cpn'>
+<slot :data = 'arr'></slot>
+</template>
+
+
+es模块化的导入和导出
+type = 'module' 模块化，每个js文件都是独立的作用域，变量不能直接互相使用
+<script src = 'aaa.js' type = 'module'></script>
+导出
+export {
+	flag,
+	num
+}
+export let flag = true;
+导出函数
+export function sum(a, b){
+
+}
+导出类
+export class function Person{
+	constructor(name, age){
+		this.name = name;
+		this.age = age;
+	}
+	run(){
+
+	}
+}
+导入import {flag,sum} from './aaa.js';
+export default;
+export  default//让引用者定义名称,只能有一个
+var address = 'ceshi';
+export default address
+import addr from "./aaa.js"
+
+导入多个
+import * as aaa from './aaa.js'
+
+command.js
+导入
+const {add, mul} = require('./mathUtils');
+导出
+module.exports = {
+  add,
+  mul
+}
+webpack
+ npm install webpack@3.6.0
+ webpack ./src/main.js ./dist/bundle.js
+ 或webpack.config.js
+ module.exxports = {
+  entry:'./src/main.js',
+  output:{
+    path:'./dist',
+    filename:'bundle.js'
+  }
+}
+webpack执行
+将webpack命令绑定到 npm run build
+在package.json中
+"scripts": {
+  "build":"webpack"
+},
+npm run build会先从本地webpack找，再到全局
+ vscode终端无法使用
+输入命令Set-ExecutionPolicy -Scope CurrentUser
+然后再输入RemoteSigned
+
+加載css文件
+1  npm install --save-dev css-loader ts-loader style-loader
+2  webpack.config.js中添加配置
+module.exports  = {
+  entry:'./src/main.js',
+  output:{
+    path:path.resolve(__dirname,'dist'),
+    filename:'bundle.js'
+  },
+  module: {
+    rules: [
+      { test: /\.css$/, use: ['style-loader','css-loader'] },//数组形式，style需要在左边，因为webpack加载是从右往左的
+      {
+        test: /\.less$/,
+        //对象形式，还可以添加其他参数
+        use: [{
+          loader: 'style-loader', // creates style nodes from JS strings
+          esModule:false,
+          
+        }, {
+          loader: 'css-loader' // translates CSS into CommonJS
+        }, {
+          loader: 'less-loader' // compiles Less to CSS
+        }
+        { test: /\.ts$/, use: 'ts-loader' },
+      ],
+    }
+}
+3 require('./css/normal.css');
+
+
+使用vue的webpack配置
+
+  resolve:{ //与module同级
+    alias:{
+      'vue$':'vue/dist/vue.esm.js'
+    }
+  }
+  main.js
+
+import Vue from 'vue';
+const appa = new Vue({
+  el:'#app',
+  data:{
+    message:'holle webpack'
+  }
+})
+
+vue 组件写法
+let App = {
+  template:`
+  <div>
+    <h2>{{message}}</h2>
+    <button @click = 'btnClick'>按钮</button>
+    <h2>{{name}}</h2>
+  </div>
+  `,
+  data(){
+    return {
+      name:'test1',
+      message:'hello webpack'
+    }
+  },
+  methods:{
+    btnClick(){
+      console.log('123');
+    }
+  }
+}
+new Vue({
+  el:'#app',
+  template:'<App />',
+  components:{
+    App
+  }
+})
+
+或
+
+import App from './vue/app.js';
+new Vue({
+  el:'#app',
+  template:'<App />',
+  components:{
+    App
+  }
+})
+app.js
+export default {
+  template:`
+  <div>
+    <h2>{{message}}</h2>
+    <button @click = 'btnClick'>按钮</button>
+    <h2>{{name}}</h2>
+  </div>
+  `,
+  data(){
+    return {
+      name:'test1',
+      message:'hello webpack'
+    }
+  },
+  methods:{
+    btnClick(){
+      console.log('123');
+    }
+  }
+}
+
+babel-loader 将不支持的es6转为es5
+
+使用vue文件需要安装vue-loader
+npm install vue-loader vue-template-compiler --save-dev
+报错vue-loader was used without the corresponding plugin. Make sure to include VueLoaderPlugin in your webpack config.
+版本太高需要plugin插件
+
+在webpack.config.js中
+module:{
+  rules: [
+    {test:/\.vue$/,
+      use:{
+        loader:'vue-loader'
+      }
+    }
+  ]
+}
+
+resolve:{
+  alias:{
+    'vue$':'vue/dist/vue.esm.js'
+  }
+},
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+plugins:[
+    new VueLoaderPlugin()
+]
+
+或者降低版本
+例如
+npm install vue-loader@14.2.2 --
+
+压缩插件
+UglifyJsPlugin被废弃了
+建议使用
+terser-webpack-plugin
+
+optimization: { //与modules同级
+  minimize: true,
+  minimizer: [new TerserPlugin()],
+},
+
+实时更新插件
+npm install --save-dev webpack-dev-server 
+web-dev-server
+devServer: {
+  static: './dist',//为该文件夹提供服务 旧版本 contentbase被static代替
+  port:5050
+},
+配置文件合并
+在当前文件中配置，与baseConfig合并
+const webpackMerge = require('webpack-merge');
+const baseConfig = require('./base.config');
+module.exports = webpackMerge.merge(baseConfig,{
+  //压缩工具代替uglifyjs
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
+  }
+})
+
+vue-cli
+安装
+3.0以上 
+也可以使用2.0
+npm install -g @vue/cli
+
+使用3.0初始化项目
+vue create 项目名称
+2.0  
+vue init webpack 项目名称
+3.0配置
+.gitignore 忽略提交文件配置
+babel.config.js 从webpackconfig.js中独立出来关于babel的配置
+2.0配置
+.babelIrc webpack.config.js中babel-preset-env独立出来的配置
+.editoreconfig 对代码格式风格进行统一
+.eslintgnore 代码规范忽略

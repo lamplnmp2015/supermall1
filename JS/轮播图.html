@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			*{
+				padding: 0;
+				margin: 0;
+				list-style: none;
+				border: 0;
+			}
+			.all{
+				width: 500px;
+				height: 300px;
+				padding: 7px;
+				border: 1px solid #ccc;
+				margin: 100px auto;
+				position: relative;
+			}
+			.screen{
+				width: 500px;
+				height: 300px;
+				overflow: hidden;
+				position: relative;
+			}
+			.screen ul{
+				position: absolute;
+				left: 0;
+				top: 0px;
+				width: 3000px;
+				
+			}
+			.screen ul li{
+				float: left;
+				
+			}
+			.all ol{
+				position: absolute;
+				right: 10px;
+				bottom: 10px;
+				line-height: 20px;
+				text-align: center;
+			}
+			.all ol li {
+				float: left;
+				width: 20px;
+				height: 20px;
+				background: #fff;
+				border: 1px solid #ccc;
+				margin-left: 10px;
+				cursor: pointer;
+			}
+			.all ol li .current {
+				background-color: 'yellow';
+			}
+			#arr{
+				display: none;
+				z-index: 1000;
+			}
+			#arr span{
+				width: 40px;
+				height: 40px;
+				position: absolute;
+				left: 5px;
+				top: 50%;
+				margin-top: -20px;
+				background-color: #000;
+				cursor: pointer;
+				line-height: 40px;
+				text-align: center;
+				font-weight:bold ;
+				font-family: '黑体';
+				font-size: 30px;
+				color: #FFFFFF;
+				opacity: 0.3;
+				border: 1px solid #fff;
+			}
+			#arr #right{
+				right: 5px;
+				left: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="all" id="box">
+			<div class="screen">
+				<ul>
+					<li><img src="FullSizeRender(7).jpg" width="500" height="300"/></li>
+					<li><img src="IMG_6203.JPG" width="500" height="300"/></li>
+					<li><img src="IMG_6258.JPG" width="500" height="300"/></li>
+					<li><img src="IMG_6221.JPG" width="500" height="300"/></li>
+					<li><img src="IMG_6248.JPG" width="500" height="300"/></li>
+				</ul>
+				<ol>
+					<!-- <li class="current" style="background-color: yellow;">1</li>
+					<li>2</li> -->
+				</ol>
+			</div>
+			<div id ='arr'><span id = 'left'>&lt;</span><span id = 'right'>&gt;</span></div>
+		</div>
+		<script src="./js/common.js"></script>
+		<script src="./js/animate.js"></script>
+		<script>
+			//生产序号
+			var box = my$('box');
+			 var screen = box.children[0];
+			 var ul = screen.children[0];
+			 var ol = screen.children[1];
+			var arr = my$('arr');
+			var arrLeft = my$('left');
+			var arrRight = my$('right');
+			var count = ul.children.length;
+			var imgWidth = screen.offsetWidth;
+			var index = 0;
+			//下方序号
+			for(var i = 0;i < count; i++){
+				var li = document.createElement('li');
+				ol.appendChild(li);
+				setInnerText(li,i+1);
+				li.setAttribute('index',i);
+				//注册点击事件
+				li.onclick = liClick;
+			}
+			function liClick(){
+				for(var i = 0;i < ol.children.length; i++){
+					var li = ol.children[i];
+					li.className = '';
+					li.style.backgroundColor = '#FFFFFF';
+				}
+				
+				
+				
+				this.style.backgroundColor = 'yellow';
+				// 获取自定义属性
+				index = parseInt(this.getAttribute('index'));
+				animate(ul, -index * imgWidth);
+			}
+			ol.children[0].style.backgroundColor = 'yellow';
+			
+			
+			arrRight.onclick = function(){
+				// console.log(ul.offsetLeft);
+				//当前为克隆图片时，将原ul回归原来位置，ul第一个
+				if(index === count){
+					ul.style.left = '0px';
+					//将序号重新开始
+					index = 0;
+				}
+				index++;
+				//克隆的图片不能调用click，特殊处理
+				if(index >= count ){
+					// ul.style.left = -500 +'px';
+					// console.log('index'+index)
+					// index = 0;
+					animate(ul, -index*imgWidth);//第二个参数位目标地址不是距离
+					for(var i = 0;i<ol.children.length;i++){
+						var li = ol.children[i];
+						li.style.background = '#fff';
+					}
+					ol.children[0].style.background = 'yellow';
+					
+				}else{
+					ol.children[index].click();
+				}
+				console.log(index);
+				// animate(ul, -index*imgWidth);
+				
+			}
+			arrLeft.onclick = function(){
+				// if(ul.style.left >= 0){
+				// 	return;
+				// }
+				//当图片是第一个时，在点击的同时将ul平移到最左端
+				if(index ===0){
+					index = count;
+					ul.style.left = -index*imgWidth+'px';
+				}
+				if(index >0){
+					index--;
+					// console.log(11333);
+					// console.log(ul.style.left); 
+					// console.log('index='+index); 
+					// console.log(index*imgWidth);
+					// animate(ul, -index*imgWidth);					
+					// console.log(ul.style.left); 
+					
+				}else{
+					// ul.style.left = -(count-1)*imgWidth+'px';
+					// index = count-1;
+					// index = count-1;
+				}
+				console.log(index);
+				ol.children[index].click();
+				
+			}
+			//无缝连接
+			//获取ul中的第一个<li></li>
+			var firstLi = ul.children[0];
+			var cloneLi = firstLi.cloneNode(true);//false 无内容
+			ul.appendChild(cloneLi);
+		
+			timerId = setInterval(myCallback,1000);
+			
+			
+			box.onmouseover = function(){
+				arr.style.display = 'block';
+				if (timerId) {
+				  clearInterval(timerId);
+				  timerId = null;
+				}
+			}
+			box.onmouseout = function(){
+				arr.style.display = 'none';
+				timerId = setInterval(myCallback,1000);
+			}
+			
+			function myCallback(){
+				arrRight.click();
+			}
+		</script>
+	</body>
+</html>

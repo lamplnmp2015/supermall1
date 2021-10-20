@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			select{
+				width: 200px;
+				height: 200px;
+				background-color: #DEDEDE;
+				text-align: center;
+				
+			}
+			.DE{
+				background-color: #DEDEDE;
+			}
+			option{
+				-moz-appearance:none; /* Firefox */
+				-webkit-appearance:none; /* Safari 和 Chrome */
+				appearance:none;
+			}
+		</style>
+	</head>
+	<body>
+		<select id = 'all' multiple="multiple">
+			<option >苹果</option>
+			<option>香蕉</option>
+			<option>西瓜</option>
+			<option>桃子</option>
+			<option>梨子</option>
+			<option>火龙果</option>
+			<option>大粪</option>
+		</select>
+		<input type="button" value=">>" id = 'btn1'/>
+		<input type="button" value="<<" id = 'btn2'/>
+		<input type="button" value=">" id = 'btn3'/>
+		<input type="button" value="<" id = 'btn4'/>
+		<select id = 'select' multiple="multiple"></select>
+	</body>
+	<script>
+		var btn1 = document.getElementById('btn1');
+		var btn2 = document.getElementById('btn2');
+		var btn3 = document.getElementById('btn3');
+		var btn4 = document.getElementById('btn4');
+		var select = document.getElementById('select');
+		var all = document.getElementById('all');
+		var children =  all.children;
+		
+		console.log(all.children);
+		btn1.onclick = function(){
+			var len = all.children.length;
+			for(var i = 0;i<len;i++){
+				var option = all.children[0];
+				select.appendChild(option);
+			}
+			
+		}
+		btn2.onclick = function(){
+			var len = select.children.length;
+			for(var i = 0;i<len;i++){
+				var option = select.children[0];
+				all.appendChild(option);
+			}
+			
+		}
+		
+		btn3.onclick = function(){
+			var options = all.selectedOptions;
+			var lenth = options.length;
+			var index = all.selectedIndex;
+			for (var i =0 ; i< lenth;i++){
+				var option = options[0];
+				select.appendChild(option);
+				option.selected = '';
+				console.log(option);
+			}
+			
+			// return false;
+			// if(index < 0) return false;
+			// var option = all.children[index];
+			// option.className = 'DE';
+			// console.log(option);
+			// select.appendChild(option);
+		}
+		btn4.onclick = function(){
+			// var index = select.selectedIndex;
+			// console.log(index);
+			// if(index < 0) return false;
+			// var option = select.children[index];
+			// all.appendChild(option);
+			
+			var options = select.selectedOptions;
+			var lenth = options.length;
+			for (var i =0 ; i< lenth;i++){
+				var option = options[0];
+				option.selected = '';
+				all.appendChild(option);
+				console.log(option);
+				
+			}
+		}
+		
+	</script>
+</html>

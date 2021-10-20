@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			
+			#squ{
+				width: 400px;
+				height: 300px;
+				border:1px solid #DEDEDE;
+				background-color: #DEDEDE;
+				position: absolute;
+				top: 200px;
+				left: 40%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="squ"></div>
+		<script src='js/common.js'></script>
+		<script>
+			var squ = document.getElementById('squ');
+			squ.onmousedown =  function(e){
+				var x = getPage(e).pageX-squ.offsetLeft;//鼠标在squ里的位置
+				var y = getPage(e).pageY-squ.offsetTop;
+				document.onmousemove = function(e){
+					e = e || window.event;
+					var squX = getPage(e).pageX - x;
+					var squY = getPage(e).pageY - y;
+					squ.style.left = squX+'px';
+					squ.style.top = squY+'px';
+					// console.log(squX);
+					// console.log(squY);
+				}
+			}
+			squ.onmouseup = function(e){
+				e = e || window.event;
+				document.onmousemove = null;
+					
+					
+			}
+			
+		</script>
+	</body>
+</html>
